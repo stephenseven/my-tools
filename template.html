@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>综合工具</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #f5f5f0;
+        font-family: "微软雅黑", sans-serif;
+        padding: 16px;
+        margin: 0;
+      }
+      .card {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-header {
+        background: #2c3e50;
+        color: white;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .card-body {
+        padding: 16px;
+      }
+
+      /* 万年历裁剪容器 */
+      .calendar-clip {
+        width: 100%;
+        height: 575px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+      .calendar-iframe {
+        position: absolute;
+        top: -140px;
+        left: 0;
+        width: 100%;
+        height: 700px;
+        border: none;
+      }
+
+      .rate-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .rate-table th,
+      .rate-table td {
+        text-align: center;
+        padding: 12px 10px;
+        border-bottom: 1px solid #ecf0f1;
+      }
+      .rate-table th {
+        background: #f8f9fa;
+        color: #2c3e50;
+      }
+      .quote-rate {
+        color: #e67e22;
+        font-weight: bold;
+      }
+
+      .update-row {
+        text-align: center;
+        font-size: 16px;
+        color: #7f8c8d;
+        padding-top: 12px;
+        margin-top: 8px;
+        border-top: 1px solid #ecf0f1;
+      }
+      .update-link {
+        margin-left: 15px;
+      }
+      .update-link a {
+        color: inherit;
+        text-decoration: underline;
+      }
+      .update-link a:hover {
+        color: #3498db;
+        text-decoration: underline;
+      }
+
+      .note {
+        background: #fef9e7;
+        padding: 8px 12px;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 12px;
+        border-radius: 8px;
+      }
+
+      /* 周数计算 - 第一行带背景色居中 */
+      .week-row-first {
+        background: #f8f9fa;
+        padding: 13px 16px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+
+      /* 周数计算 - 第二行无背景色居中 */
+      .week-row-second {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 23px;
+        color: #2c3e50;
+        line-height: 1.5;
+      }
+      .week-input {
+        width: 60px;
+        padding: 5px 5px;
+        margin: 0px 7px;
+        font-size: 23px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      /* 禁用 body 滚动 */
+      body {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 万年历 - 裁剪版 -->
+    <div class="card">
+      <div class="card-header">📅 万年历</div>
+      <div class="card-body" style="padding: 0">
+        <div class="calendar-clip">
+          <iframe
+            class="calendar-iframe"
+            src="https://tools.2345.com/rili"
+            scrolling="no"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- 汇率 -->
+    <div class="card">
+      <div class="card-header">💰 实时汇率 · 中行现汇买入价</div>
+      <div class="card-body">
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>货币</th>
+              <th>现汇买入价</th>
+              <th>报价汇率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="usdRow">
+              <td>美元 (USD)</td>
+              <td id="usdRate">--</td>
+              <td id="usdQuote">--</td>
+            </tr>
+            <tr id="eurRow">
+              <td>欧元 (EUR)</td>
+              <td id="eurRate">--</td>
+              <td id="eurQuote">--</td>
+            </tr>
+            <tr id="audRow">
+              <td>澳元 (AUD)</td>
+              <td id="audRate">--</td>
+              <td id="audQuote">--</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="update-row">
+          <span id="updateTime">数据更新时间：--</span>
+          <span class="update-link">
+            <a id="bankLink" href="#" style="text-decoration: underline"
+              >访问中行官网</a
+            >
+          </span>
+        </div>
+        <div class="note">报价汇率 = (现汇买入价 - 0.15) 向下取整0.05</div>
+      </div>
+    </div>
+
+    <!-- 周数计算 -->
+    <div class="card">
+      <div class="card-header">📆 周数计算</div>
+      <div class="card-body">
+        <!-- 第一行：带背景色 -->
+        <div class="week-row-first">
+          <span class="week-label">今天是</span>
+          <span class="week-label" id="currentYearWeek">--</span>
+        </div>
+        <!-- 第二行：无背景色 -->
+        <div class="week-row-second">
+          <span>第</span>
+          <input
+            type="text"
+            id="weekInput"
+            class="week-input"
+            value="{{CURRENT_WEEK}}"
+          />
+          <span>周范围：</span>
+          <span id="weekResult">--</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 周数计算
+      var now = new Date();
+      var currentYear = now.getFullYear();
+
+      function getCurrentWeek() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var firstThursday = new Date(year, 0, 4);
+        while (firstThursday.getDay() !== 4)
+          firstThursday.setDate(firstThursday.getDate() - 1);
+        var firstMonday = new Date(firstThursday);
+        firstMonday.setDate(firstThursday.getDate() - 3);
+        var diffDays = Math.floor((now - firstMonday) / (24 * 3600 * 1000));
+        return Math.floor(diffDays / 7) + 1;
+      }
+
+      document.getElementById("currentYearWeek").innerText =
+        currentYear + "年第" + getCurrentWeek() + "周";
+
+      var weekInput = document.getElementById("weekInput");
+      var weekResult = document.getElementById("weekResult");
+
+      function getWeekRange(year, weekNum) {
+        var firstThursday = new Date(year, 0, 4);
+        while (firstThursday.getDay() !== 4)
+          firstThursday.setDate(firstThursday.getDate() - 1);
+        var firstMonday = new Date(firstThursday);
+        firstMonday.setDate(firstThursday.getDate() - 3);
+        var targetMonday = new Date(firstMonday);
+        targetMonday.setDate(firstMonday.getDate() + (weekNum - 1) * 7);
+        var targetSunday = new Date(targetMonday);
+        targetSunday.setDate(targetMonday.getDate() + 6);
+        function formatDate(d) {
+          return (
+            d.getFullYear() +
+            "年" +
+            (d.getMonth() + 1) +
+            "月" +
+            d.getDate() +
+            "日"
+          );
+        }
+        return (
+          formatDate(targetMonday) +
+          " - " +
+          formatDate(targetSunday) +
+          "（周一至周日）"
+        );
+      }
+
+      function updateWeekResult() {
+        var input = weekInput.value;
+        var year = new Date().getFullYear();
+        var weekNum = parseInt(input, 10);
+        if (input && !isNaN(weekNum) && weekNum >= 1 && weekNum <= 53) {
+          weekResult.innerHTML = getWeekRange(year, weekNum);
+        } else {
+          weekResult.innerHTML = "请输入 1-53 之间的数字";
+        }
+      }
+
+      weekInput.oninput = updateWeekResult;
+      updateWeekResult();
+    </script>
+  </body>
+</html>

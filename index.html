@@ -281,7 +281,7 @@
           weekResult.innerHTML = "请输入 1-53 之间的数字";
         }
       }
-
+      weekInput.value = getCurrentWeek();
       weekInput.oninput = updateWeekResult;
       updateWeekResult();
     </script>

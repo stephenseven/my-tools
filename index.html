@@ -26,6 +26,7 @@
     </style>
 </head>
 <body>
+    <!-- 万年历 -->
     <div class="card">
         <div class="card-header">📅 万年历</div>
         <div class="card-body" style="padding: 0">
@@ -35,15 +36,34 @@
         </div>
     </div>
 
+    <!-- 汇率 -->
     <div class="card">
         <div class="card-header">💰 实时汇率 · 中行现汇买入价</div>
         <div class="card-body">
             <table class="rate-table">
-                <thead><tr><th>货币</th><th>现汇买入价</th><th>报价汇率</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>货币</th>
+                        <th>现汇买入价</th>
+                        <th>报价汇率</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    <tr id="usdRow"><td>美元 (USD)<\/td><td id="usdRate">--<\/td><td id="usdQuote">--<\/td><\/tr>
-                    <tr id="eurRow"><td>欧元 (EUR)<\/td><td id="eurRate">--<\/td><td id="eurQuote">--<\/td><\/tr>
-                    <tr id="audRow"><td>澳元 (AUD)<\/td><td id="audRate">--<\/td><td id="audQuote">--<\/td><\/tr>
+                    <tr id="usdRow">
+                        <td>美元 (USD)</td>
+                        <td id="usdRate">--</td>
+                        <td id="usdQuote">--</td>
+                    </tr>
+                    <tr id="eurRow">
+                        <td>欧元 (EUR)</td>
+                        <td id="eurRate">--</td>
+                        <td id="eurQuote">--</td>
+                    </tr>
+                    <tr id="audRow">
+                        <td>澳元 (AUD)</td>
+                        <td id="audRate">--</td>
+                        <td id="audQuote">--</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="update-row">
@@ -54,13 +74,17 @@
         </div>
     </div>
 
+    <!-- 周数计算 -->
     <div class="card">
         <div class="card-header">📆 周数计算</div>
         <div class="card-body">
-            <div class="week-row-first"><span>今天是</span><span id="currentYearWeek">--</span></div>
+            <div class="week-row-first">
+                <span>今天是</span>
+                <span id="currentYearWeek">--</span>
+            </div>
             <div class="week-row-second">
                 <span>第</span>
-                <input type="text" id="weekInput" class="week-input" value="" />
+                <input type="text" id="weekInput" class="week-input" value="">
                 <span>周范围：</span>
                 <span id="weekResult">--</span>
             </div>
@@ -102,9 +126,9 @@
                 document.getElementById('weekResult').innerHTML = '请输入 1-53';
             }
         }
-        document.getElementById('currentYearWeek').innerText = new Date().getFullYear() + '年第' + getCurrentWeek() + '周';
         var weekInput = document.getElementById('weekInput');
         weekInput.oninput = updateWeekResult;
+        document.getElementById('currentYearWeek').innerText = new Date().getFullYear() + '年第' + getCurrentWeek() + '周';
         updateWeekResult();
     </script>
 </body>

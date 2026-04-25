@@ -51,18 +51,18 @@
                 <tbody>
                     <tr id="usdRow">
                         <td>美元 (USD)</td>
-                        <td id="usdRate">--</td>
-                        <td id="usdQuote">--</td>
+                        <td id="usdRate">--<\/td>
+                        <td id="usdQuote">--<\/td>
                     </tr>
                     <tr id="eurRow">
                         <td>欧元 (EUR)</td>
-                        <td id="eurRate">--</td>
-                        <td id="eurQuote">--</td>
+                        <td id="eurRate">--<\/td>
+                        <td id="eurQuote">--<\/td>
                     </tr>
                     <tr id="audRow">
                         <td>澳元 (AUD)</td>
-                        <td id="audRate">--</td>
-                        <td id="audQuote">--</td>
+                        <td id="audRate">--<\/td>
+                        <td id="audQuote">--<\/td>
                     </tr>
                 </tbody>
             </table>
@@ -102,6 +102,7 @@
             var diffDays = Math.floor((now - firstMonday) / (24 * 3600 * 1000));
             return Math.floor(diffDays / 7) + 1;
         }
+
         function getWeekRange(year, weekNum) {
             var firstThursday = new Date(year, 0, 4);
             while (firstThursday.getDay() !== 4) firstThursday.setDate(firstThursday.getDate() - 1);
@@ -116,6 +117,7 @@
             }
             return formatDate(targetMonday) + ' - ' + formatDate(targetSunday) + '（周一至周日）';
         }
+
         function updateWeekResult() {
             var input = document.getElementById('weekInput').value;
             var year = new Date().getFullYear();
@@ -126,7 +128,9 @@
                 document.getElementById('weekResult').innerHTML = '请输入 1-53';
             }
         }
+
         var weekInput = document.getElementById('weekInput');
+        weekInput.value = getCurrentWeek();
         weekInput.oninput = updateWeekResult;
         document.getElementById('currentYearWeek').innerText = new Date().getFullYear() + '年第' + getCurrentWeek() + '周';
         updateWeekResult();

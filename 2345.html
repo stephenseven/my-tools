@@ -35,17 +35,17 @@
       }
       .calendar-clip {
         width: 100%;
-        height: 510px;
+        height: 575px;
         overflow: hidden;
         position: relative;
         background: white;
       }
       .calendar-iframe {
         position: absolute;
-        top: -150px;
+        top: -140px;
         left: 0;
         width: 100%;
-        height: 1000px;
+        height: 700px;
         border: none;
       }
       .rate-table {
@@ -150,7 +150,7 @@
         <div class="calendar-clip">
           <iframe
             class="calendar-iframe"
-            src="https://tools.2345.com/rili"
+            src="about:blank"
             scrolling="no"
             frameborder="0"
           ></iframe>
@@ -244,6 +244,10 @@
     </div>
 
     <script>
+      window.calendarConfig = {
+        url: "https://tools.2345.com/rili", // 想换哪个万年历就改这里
+        winHeight: 880, // 窗口高度（根据网址调整）
+      };
       function g(id) {
         var e = document.getElementById(id);
         return e ? e.innerText || e.textContent || "--" : "--";

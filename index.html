@@ -34,18 +34,12 @@
         padding: 16px;
       }
       .calendar-clip {
-        width: 100%;
-        height: 575px;
         overflow: hidden;
         position: relative;
         background: white;
       }
       .calendar-iframe {
         position: absolute;
-        top: -140px;
-        left: 0;
-        width: 100%;
-        height: 700px;
         border: none;
       }
       .rate-table {
@@ -84,15 +78,12 @@
         padding-top: 12px;
         margin-top: 8px;
       }
-
       .update-link {
         margin: 2px;
       }
-
       #bankLink {
         margin-left: 3px;
       }
-
       .update-link a {
         color: inherit;
         text-decoration: underline;
@@ -244,10 +235,87 @@
     </div>
 
     <script>
-      window.calendarConfig = {
-        url: "https://tools.2345.com/rili", // 想换哪个万年历就改这里
-        winHeight: 880, // 窗口高度（根据网址调整）
+      // ========== 三套万年历配置（通过 URL 参数 ?v=1/2/3 切换） ==========
+      var themes = {
+        1: {
+          url: "https://tools.2345.com/rili",
+          winHeight: 880,
+          clipStyle: {
+            width: "100%",
+            height: "575px",
+            top: "-140px",
+            left: "0",
+            iframeWidth: "100%",
+            iframeHeight: "700px",
+          },
+        },
+        2: {
+          url: "https://www.wnl.cc/",
+          winHeight: 880,
+          clipStyle: {
+            width: "100%",
+            height: "510px",
+            top: "-150px",
+            left: "0",
+            iframeWidth: "100%",
+            iframeHeight: "1000px",
+          },
+        },
+        3: {
+          url: "https://hao.360.com/rili/",
+          winHeight: 980,
+          clipStyle: {
+            width: "1000px",
+            height: "705px",
+            top: "-200px",
+            left: "11px",
+            iframeWidth: "1000px",
+            iframeHeight: "1000px",
+            transform: "scale(1.19)",
+            transformOrigin: "0 0",
+          },
+        },
       };
+
+      // 获取 URL 参数 v，默认 1
+      var urlParams = new URLSearchParams(window.location.search);
+      var version = parseInt(urlParams.get("v")) || 1;
+      if (version < 1 || version > 3) version = 1;
+
+      var cfg = themes[version];
+
+      // 应用万年历配置
+      window.calendarConfig = {
+        url: cfg.url,
+        winHeight: cfg.winHeight,
+      };
+
+      // 动态插入万年历容器和 iframe 样式
+      var style = document.createElement("style");
+      var transformStyle = cfg.clipStyle.transform
+        ? `transform: ${cfg.clipStyle.transform}; transform-origin: ${cfg.clipStyle.transformOrigin};`
+        : "";
+      style.textContent = `
+        .calendar-clip {
+          width: ${cfg.clipStyle.width};
+          height: ${cfg.clipStyle.height};
+          overflow: hidden;
+          position: relative;
+          background: white;
+        }
+        .calendar-iframe {
+          position: absolute;
+          top: ${cfg.clipStyle.top};
+          left: ${cfg.clipStyle.left};
+          width: ${cfg.clipStyle.iframeWidth};
+          height: ${cfg.clipStyle.iframeHeight};
+          border: none;
+          ${transformStyle}
+        }
+      `;
+      document.head.appendChild(style);
+
+      // 以下是原有功能代码（不变）
       function g(id) {
         var e = document.getElementById(id);
         return e ? e.innerText || e.textContent || "--" : "--";

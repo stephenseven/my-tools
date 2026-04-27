@@ -34,20 +34,32 @@
         padding: 16px;
       }
       .calendar-clip {
-        width: 100%;
-        height: 510px;
+        width: 1000px;
+        height: 705px;
         overflow: hidden;
         position: relative;
         background: white;
       }
+
       .calendar-iframe {
         position: absolute;
-        top: -150px;
-        left: 0;
-        width: 100%;
+        /* 1. 稍微下移，避开顶部的棕色条 */
+        top: -200px;
+
+        /* 2. 这里的负值非常关键，决定了左边切掉多少 */
+        left: 11px;
+
+        /* 3. 必须保持一个宽广的画布 */
+        width: 1000px;
         height: 1000px;
+
+        /* 4. 关键点：不要过分放大！ */
+        /* 1.1 左右通常是 700px 容器下最完美的比例 */
+        transform: scale(1.19);
+        transform-origin: 0 0;
         border: none;
       }
+
       .rate-table {
         width: 100%;
         table-layout: fixed;
@@ -150,7 +162,7 @@
         <div class="calendar-clip">
           <iframe
             class="calendar-iframe"
-            src="https://hao.360.com/rili/"
+            src="about:blank"
             scrolling="no"
             frameborder="0"
           ></iframe>
@@ -244,6 +256,11 @@
     </div>
 
     <script>
+      window.calendarConfig = {
+        url: "https://hao.360.com/rili/", // 想换哪个万年历就改这里
+        winHeight: 980, // 窗口高度（根据网址调整）
+      };
+
       function g(id) {
         var e = document.getElementById(id);
         return e ? e.innerText || e.textContent || "--" : "--";

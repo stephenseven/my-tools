@@ -134,7 +134,6 @@
     </style>
   </head>
   <body>
-    <!-- 万年历 -->
     <div class="card">
       <div class="card-header">📅 万年历</div>
       <div class="card-body" style="padding: 0">
@@ -149,7 +148,6 @@
       </div>
     </div>
 
-    <!-- 汇率 -->
     <div class="card">
       <div class="card-header">💰 实时汇率</div>
       <div class="card-body">
@@ -167,12 +165,7 @@
               <td>美元 (USD)</td>
               <td id="usdRate">--</td>
               <td>
-                <input
-                  type="text"
-                  id="margin1"
-                  class="margin-input"
-                  value="0.15"
-                />
+                <input type="text" id="margin1" class="margin-input" value="0.15" />
               </td>
               <td id="usdQuote" class="quote-rate">--</td>
             </tr>
@@ -180,12 +173,7 @@
               <td>欧元 (EUR)</td>
               <td id="eurRate">--</td>
               <td>
-                <input
-                  type="text"
-                  id="margin2"
-                  class="margin-input"
-                  value="0.15"
-                />
+                <input type="text" id="margin2" class="margin-input" value="0.15" />
               </td>
               <td id="eurQuote" class="quote-rate">--</td>
             </tr>
@@ -193,12 +181,7 @@
               <td>澳元 (AUD)</td>
               <td id="audRate">--</td>
               <td>
-                <input
-                  type="text"
-                  id="margin3"
-                  class="margin-input"
-                  value="0.15"
-                />
+                <input type="text" id="margin3" class="margin-input" value="0.15" />
               </td>
               <td id="audQuote" class="quote-rate">--</td>
             </tr>
@@ -217,7 +200,6 @@
       </div>
     </div>
 
-    <!-- 周数计算 -->
     <div class="card">
       <div class="card-header">📆 周数计算</div>
       <div class="card-body">
@@ -235,7 +217,6 @@
     </div>
 
     <script>
-      // ========== 三套万年历配置（通过 URL 参数 ?v=1/2/3 切换） ==========
       var themes = {
         1: {
           url: "https://tools.2345.com/rili",
@@ -246,8 +227,8 @@
             top: "-140px",
             left: "0",
             iframeWidth: "100%",
-            iframeHeight: "700px",
-          },
+            iframeHeight: "700px"
+          }
         },
         2: {
           url: "https://www.wnl.cc/",
@@ -258,8 +239,8 @@
             top: "-150px",
             left: "0",
             iframeWidth: "100%",
-            iframeHeight: "1000px",
-          },
+            iframeHeight: "1000px"
+          }
         },
         3: {
           url: "https://hao.360.com/rili/",
@@ -272,25 +253,22 @@
             iframeWidth: "1000px",
             iframeHeight: "1000px",
             transform: "scale(1.19)",
-            transformOrigin: "0 0",
-          },
-        },
+            transformOrigin: "0 0"
+          }
+        }
       };
 
-      // 获取 URL 参数 v，默认 1
       var urlParams = new URLSearchParams(window.location.search);
       var version = parseInt(urlParams.get("v")) || 1;
       if (version < 1 || version > 3) version = 1;
 
       var cfg = themes[version];
 
-      // 应用万年历配置
       window.calendarConfig = {
         url: cfg.url,
-        winHeight: cfg.winHeight,
+        winHeight: cfg.winHeight
       };
 
-      // 动态插入万年历容器和 iframe 样式
       var style = document.createElement("style");
       var transformStyle = cfg.clipStyle.transform
         ? `transform: ${cfg.clipStyle.transform}; transform-origin: ${cfg.clipStyle.transformOrigin};`
@@ -315,7 +293,6 @@
       `;
       document.head.appendChild(style);
 
-      // 以下是原有功能代码（不变）
       function g(id) {
         var e = document.getElementById(id);
         return e ? e.innerText || e.textContent || "--" : "--";
@@ -357,14 +334,7 @@
         var sun = new Date(d);
         sun.setDate(d.getDate() + 6);
         function fmt(x) {
-          return (
-            x.getFullYear() +
-            "年" +
-            (x.getMonth() + 1) +
-            "月" +
-            x.getDate() +
-            "日"
-          );
+          return x.getFullYear() + "年" + (x.getMonth() + 1) + "月" + x.getDate() + "日";
         }
         return fmt(mon) + " - " + fmt(sun) + "（周一至周日）";
       }
@@ -383,18 +353,13 @@
         for (var i = 0; i < ids.length; i++) {
           var el = document.getElementById(ids[i]);
           if (el) {
-            el.oninput = function () {
-              sync(this.value);
-            };
-            el.onblur = function () {
-              if (this.value == "") sync("0.15");
-            };
+            el.oninput = function() { sync(this.value); };
+            el.onblur = function() { if (this.value == "") sync("0.15"); };
           }
         }
-
         var wkIn = document.getElementById("weekIn");
         if (wkIn) {
-          wkIn.oninput = function () {
+          wkIn.oninput = function() {
             var v = parseInt(this.value);
             var y = new Date().getFullYear();
             if (!isNaN(v) && v >= 1 && v <= 53) {
@@ -420,11 +385,11 @@
 
       init();
 
-      window.refreshRates = function () {
+      window.refreshRates = function() {
         refresh();
       };
 
-      setInterval(function () {
+      setInterval(function() {
         if (g("usdQuote") == "--" && g("usdRate") != "--") refresh();
       }, 1000);
     </script>

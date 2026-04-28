@@ -231,12 +231,12 @@
                 <th>现汇买入价</th>
                 <th>安全边际</th>
                 <th>报价汇率</th>
-              </tr>
+              <tr>
             </thead>
             <tbody>
               <tr id="usdRow">
                 <td>美元 (USD)</td>
-                <td id="usdRate">--</td>
+                <td id="usdRate">--<\/td>
                 <td>
                   <input
                     type="text"
@@ -244,12 +244,12 @@
                     class="margin-input"
                     value="0.15"
                   />
-                </td>
-                <td id="usdQuote" class="quote-rate">--</td>
-              </tr>
+                <\/td>
+                <td id="usdQuote" class="quote-rate">--<\/td>
+              <\/tr>
               <tr id="eurRow">
-                <td>欧元 (EUR)</td>
-                <td id="eurRate">--</td>
+                <td>欧元 (EUR)<\/td>
+                <td id="eurRate">--<\/td>
                 <td>
                   <input
                     type="text"
@@ -257,12 +257,12 @@
                     class="margin-input"
                     value="0.15"
                   />
-                </td>
-                <td id="eurQuote" class="quote-rate">--</td>
-              </tr>
+                <\/td>
+                <td id="eurQuote" class="quote-rate">--<\/td>
+              <\/tr>
               <tr id="audRow">
-                <td>澳元 (AUD)</td>
-                <td id="audRate">--</td>
+                <td>澳元 (AUD)<\/td>
+                <td id="audRate">--<\/td>
                 <td>
                   <input
                     type="text"
@@ -270,11 +270,11 @@
                     class="margin-input"
                     value="0.15"
                   />
-                </td>
-                <td id="audQuote" class="quote-rate">--</td>
-              </tr>
+                <\/td>
+                <td id="audQuote" class="quote-rate">--<\/td>
+              <\/tr>
             </tbody>
-          </table>
+          <\/table>
           <div class="update-row">
             <span id="updateTime">数据更新时间：--</span>
             <span class="update-link"
@@ -312,7 +312,7 @@
         <div class="card-header">🌤️ 实时天气 - 宁波鄞州</div>
         <div class="card-body weather-card">
           <iframe
-            src="https://www.weather.com.cn/weather/101210401.shtml"
+            src="https://www.weather.com.cn/weather/101210411.shtml"
             scrolling="no"
             frameborder="0"
           ></iframe>
@@ -322,7 +322,7 @@
         <div class="card-header">🕐 世界时间</div>
         <div class="card-body time-card">
           <iframe
-            src="https://hao.360.com/rili/"
+            src="https://time.is/"
             scrolling="no"
             frameborder="0"
           ></iframe>
@@ -332,7 +332,7 @@
         <div class="card-header">📦 快递查询 - UPS</div>
         <div class="card-body express-card">
           <iframe
-            src="https://hao.360.com/rili/"
+            src="https://www.ups.com/track?loc=zh_CN&requester=ST/"
             scrolling="no"
             frameborder="0"
           ></iframe>
@@ -349,11 +349,20 @@
         if (mode === "main") {
           mainPanel.classList.add("active");
           otherPanel.classList.remove("active");
-          if (window.ahkResizeWindow) window.ahkResizeWindow(960);
+          // WebView2 调用方式
+          if (typeof chrome !== 'undefined' && chrome.webview && chrome.webview.hostObjects && chrome.webview.hostObjects.ahk) {
+            chrome.webview.hostObjects.ahk.ResizeWindow(960);
+          } else if (window.ahkResizeWindow) {
+            window.ahkResizeWindow(960);
+          }
         } else {
           mainPanel.classList.remove("active");
           otherPanel.classList.add("active");
-          if (window.ahkResizeWindow) window.ahkResizeWindow(1060);
+          if (typeof chrome !== 'undefined' && chrome.webview && chrome.webview.hostObjects && chrome.webview.hostObjects.ahk) {
+            chrome.webview.hostObjects.ahk.ResizeWindow(1060);
+          } else if (window.ahkResizeWindow) {
+            window.ahkResizeWindow(1060);
+          }
         }
       }
 

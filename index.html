@@ -848,8 +848,7 @@
       (function () {
         var urls = {
           ups: "https://www.ups.com/track?loc=zh_CN&tracknum=%s",
-          fedex:
-            "https://www.fedex.com/fedextrack/?tracknumbers=%s&cntry_code=cn",
+          fedex: "https://www.fedex.com/wtrk/track/?trknbr=%s",
           dhl: "https://www.dhl.com/cn-zh/home/tracking.html?tracking-id=%s&submit=1",
           sf: "https://www.sf-express.com/chn/sc/waybill/waybill-detail/%s",
         };
@@ -929,7 +928,7 @@
       if (saveBtn) {
         saveBtn.onclick = function () {
           localStorage.setItem("myMemo", memoTextarea.value);
-          showTip("已保存");
+          showTip("文本已保存");
         };
       }
 
@@ -938,7 +937,7 @@
         clearBtn.onclick = function () {
           memoTextarea.value = "";
           localStorage.removeItem("myMemo");
-          showTip("已清空");
+          showTip("文本已清空");
         };
       }
     </script>

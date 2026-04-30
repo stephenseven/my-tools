@@ -1,0 +1,947 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>综合工具</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #f5f5f0;
+        font-family: "微软雅黑", sans-serif;
+        padding: 5px 10px;
+        overflow: hidden;
+        position: relative;
+        height: 100vh;
+      }
+      /* 主容器 */
+      .main-container {
+        display: flex;
+        height: calc(100vh - 20px);
+        overflow: hidden;
+      }
+      .main-content {
+        flex: 1;
+        overflow-y: hidden;
+      }
+      .card {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-header {
+        background: #4a627a;
+        color: white;
+        padding: 7px 10px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .card-body {
+        padding: 15px 15px;
+      }
+      /* 汇率表格 */
+      .rate-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .rate-table th,
+      .rate-table td {
+        text-align: center;
+        padding: 7px 10px;
+        border-bottom: 1px solid #ecf0f1;
+        font-size: 15px;
+      }
+      .rate-table th {
+        background: #f8f9fa;
+        padding: 9px 10px;
+        color: #2c3e50;
+      }
+      .quote-rate {
+        color: #e67e22;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      .margin-input {
+        width: 55px;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        color: #2c3e50;
+      }
+      .update-row {
+        text-align: center;
+        font-size: 12px;
+        color: #7f8c8d;
+        padding-top: 6px;
+        margin-top: 8px;
+      }
+      .update-link {
+        margin: 2px;
+      }
+      .update-link a {
+        color: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .update-link a:hover {
+        color: #3498db;
+        text-decoration: underline;
+      }
+      .note {
+        background: #fef9e7;
+        padding: 7px 12px;
+        font-size: 12px;
+        color: #555555;
+        text-align: center;
+        margin-top: 8px;
+        margin-bottom: -2px;
+        border-radius: 8px;
+      }
+      /* 快递查询 - 两行两列网格 */
+      .express-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-left: -1px;
+        margin-bottom: -10px;
+      }
+      .express-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid #ecf0f1;
+      }
+      .express-item:last-child {
+        border-bottom: none;
+      }
+      .express-name {
+        width: 40px;
+        font-weight: bold;
+        font-size: 15px;
+        color: #2c3e50;
+        text-align: left;
+      }
+      #nameUPS,
+      #nameDHL {
+        width: 25px;
+      }
+      .express-input {
+        flex: 1;
+        max-width: 160px;
+        padding: 7px 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      .express-btn {
+        padding: 6px 10px;
+        background: #5a7a9a;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .express-btn:hover {
+        background: #3a5a7a;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+      .express-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .express-result {
+        font-size: 12px;
+        color: #e67e22;
+        margin-top: 2px;
+        margin-left: 55px;
+        margin-bottom: 8px;
+      }
+      /* 周数计算 */
+      .week-row-first {
+        background: #f8f9fa;
+        padding: 8px 16px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+      .week-row-second {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        flex-wrap: wrap;
+        font-size: 15px;
+        color: #2c3e50;
+        line-height: 1.5;
+      }
+      .week-input {
+        width: 35px;
+        text-align: center;
+        padding: 3px 3px 2px 2px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 15px;
+        color: #2c3e50;
+      }
+      #weekRes {
+        margin-left: -5px;
+      }
+      /* 世界时间 - 三行四列网格 */
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .time-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 5px 5px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+      }
+      .time-card-name {
+        font-size: 13px;
+        color: #2c3e50;
+        margin-bottom: 2px;
+      }
+      .time-card-time {
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #2c3e50;
+        margin: 3px 0;
+      }
+      .time-card-offset {
+        font-size: 10px;
+        color: #7f8c8d;
+      }
+      .time-card:nth-child(11) .time-card-name,
+      .time-card:nth-child(12) .time-card-name {
+        font-size: 12px;
+      }
+
+      /* ========== 侧边栏（完整保留第二屏风格） ========== */
+      .sidebar {
+        position: fixed;
+        right: -600px;
+        top: 0;
+        width: 600px;
+        height: 100vh;
+        background: #f5f5f0;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: hidden;
+        padding: 0 10px 10px 10px;
+      }
+      .sidebar.open {
+        right: 0;
+      }
+      .sidebar .card {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar .card-header {
+        background: #4a627a;
+        color: white;
+        padding: 7px 10px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .sidebar .card-body {
+        padding: 0px;
+      }
+      .calendar-clip {
+        width: 1000px;
+        height: 350px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+
+      .calendar-iframe {
+        position: absolute;
+        top: -115px;
+        left: -71px;
+        width: 1000px;
+        height: 1000px;
+        transform: scale(0.721);
+        transform-origin: 0 0;
+        border: none;
+      }
+
+      .weather-clip {
+        width: 1000px;
+        height: 295px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+
+      .weather-iframe {
+        position: absolute;
+        top: -150px;
+        left: -50px;
+        width: 1000px;
+        height: 1000px;
+        transform: scale(0.875);
+        transform-origin: 0 0;
+        border: none;
+      }
+
+      .memo-textarea {
+        width: 100%;
+        height: 135px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: "微软雅黑", sans-serif;
+        font-size: 13px;
+        resize: vertical;
+        background: #fffef7;
+      }
+      .memo-buttons {
+        display: flex;
+        gap: 8px;
+        margin: 5px 0 10px 10px;
+      }
+      .memo-btn {
+        padding: 4px 10px; /* 改为固定宽度，不占满 */
+        background: transparent; /* 透明背景 */
+        color: #7f8c8d; /* 灰色文字 */
+        border: 1px solid #ddd; /* 浅灰边框 */
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .memo-btn:hover {
+        background: #f0f0f0; /* 悬停时浅灰背景 */
+        color: #2c3e50;
+      }
+
+      /* 侧边栏开关按钮 */
+      .sidebar-toggle {
+        position: fixed;
+        right: 10px;
+        bottom: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #4a627a;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+      }
+      .sidebar-toggle:hover {
+        background: #3a4f63;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="main-content">
+        <!-- 汇率 -->
+        <div class="card">
+          <div class="card-header">💰 实时汇率</div>
+          <div class="card-body">
+            <table class="rate-table">
+              <thead>
+                <tr>
+                  <th>货币</th>
+                  <th>现汇买入价</th>
+                  <th>安全边际</th>
+                  <th>报价汇率</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="usdRow">
+                  <td>美元 (USD)</td>
+                  <td id="usdRate">--</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="margin1"
+                      class="margin-input"
+                      value="0.15"
+                    />
+                  </td>
+                  <td id="usdQuote" class="quote-rate">--</td>
+                </tr>
+                <tr id="eurRow">
+                  <td>欧元 (EUR)</td>
+                  <td id="eurRate">--</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="margin2"
+                      class="margin-input"
+                      value="0.15"
+                    />
+                  </td>
+                  <td id="eurQuote" class="quote-rate">--</td>
+                </tr>
+                <tr id="audRow">
+                  <td>澳元 (AUD)</td>
+                  <td id="audRate">--</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="margin3"
+                      class="margin-input"
+                      value="0.15"
+                    />
+                  </td>
+                  <td id="audQuote" class="quote-rate">--</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="update-row">
+              <span id="updateTime">数据更新时间：--</span>
+              <span class="update-link"
+                ><a
+                  href="javascript:void(0);"
+                  onclick="window.chrome.webview.hostObjects.ahk.OpenBank()"
+                  >访问中行官网</a
+                ></span
+              >
+              <span class="update-link"
+                ><a
+                  href="javascript:void(0);"
+                  onclick="window.chrome.webview.hostObjects.ahk.OpenSavvy()"
+                  >赛纬橡塑</a
+                ></span
+              >
+            </div>
+            <div class="note">
+              报价汇率 = (现汇买入价 - 安全边际) 向下取整0.05
+            </div>
+          </div>
+        </div>
+
+        <!-- 快递查询 -->
+        <div class="card">
+          <div class="card-header">📦 快递查询</div>
+          <div class="card-body">
+            <div class="express-grid">
+              <div>
+                <div class="express-item">
+                  <span class="express-name" id="nameUPS">UPS</span
+                  ><input
+                    type="text"
+                    id="upsNum"
+                    class="express-input"
+                    placeholder="1Z开头的单号"
+                  /><button class="express-btn" data-carrier="ups">追踪</button>
+                </div>
+                <div id="upsResult" class="express-result"></div>
+                <div class="express-item">
+                  <span class="express-name" id="nameDHL">DHL</span
+                  ><input
+                    type="text"
+                    id="dhlNum"
+                    class="express-input"
+                    placeholder="10位纯数字单号"
+                  /><button class="express-btn" data-carrier="dhl">追踪</button>
+                </div>
+                <div id="dhlResult" class="express-result"></div>
+              </div>
+              <div>
+                <div class="express-item">
+                  <span class="express-name">FedEx</span
+                  ><input
+                    type="text"
+                    id="fedexNum"
+                    class="express-input"
+                    placeholder="12位纯数字单号"
+                  /><button class="express-btn" data-carrier="fedex">
+                    追踪
+                  </button>
+                </div>
+                <div id="fedexResult" class="express-result"></div>
+                <div class="express-item">
+                  <span class="express-name">顺丰</span
+                  ><input
+                    type="text"
+                    id="sfNum"
+                    class="express-input"
+                    placeholder="SF开头的单号"
+                  /><button class="express-btn" data-carrier="sf">追踪</button>
+                </div>
+                <div id="sfResult" class="express-result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 周数计算 -->
+        <div class="card">
+          <div class="card-header">📆 周数计算</div>
+          <div class="card-body">
+            <div class="week-row-first">
+              <span>今天是</span><span id="currentYearWeek">--</span>
+            </div>
+            <div class="week-row-second">
+              <span>第</span
+              ><input
+                type="text"
+                id="weekIn"
+                class="week-input"
+                value=""
+              /><span>周：</span><span id="weekRes">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 世界时间 -->
+        <div class="card">
+          <div class="card-header">🕐 世界时间</div>
+          <div class="card-body">
+            <div class="time-grid" id="timeGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <!-- 万年历 -->
+      <div class="card">
+        <div class="card-header">📅 万年历</div>
+        <div class="card-body" style="padding: 0">
+          <div class="calendar-clip">
+            <iframe
+              class="calendar-iframe"
+              src="https://www.wnl.cc/"
+              scrolling="no"
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+      <!-- 天气 -->
+      <div class="card">
+        <div class="card-header">🌤️ 实时天气 - 宁波鄞州</div>
+        <div class="card-body" style="padding: 0">
+          <div class="weather-clip">
+            <iframe
+              class="weather-iframe"
+              src="https://www.weather.com.cn/weather1d/101210411.shtml"
+              sandbox="allow-same-origin allow-scripts allow-forms"
+              scrolling="no"
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+      <!-- 备忘便笺 -->
+      <div class="card">
+        <div class="card-header">📝 备忘便笺</div>
+        <div class="card-body">
+          <textarea
+            id="memoContent"
+            class="memo-textarea"
+            placeholder="记录你的备忘信息..."
+          ></textarea>
+          <div class="memo-buttons">
+            <button class="memo-btn" id="saveMemo">保存</button>
+            <button class="memo-btn" id="clearMemo">清空</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 侧边栏开关按钮 -->
+    <button class="sidebar-toggle" id="toggleSidebar">☰</button>
+
+    <script>
+      // 侧边栏控制（点击按钮切换打开/关闭）
+      var sidebar = document.getElementById("sidebar");
+      var toggleBtn = document.getElementById("toggleSidebar");
+      var mainContent = document.querySelector(".main-content");
+
+      function openSidebar() {
+        sidebar.classList.add("open");
+      }
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", function () {
+          if (sidebar.classList.contains("open")) closeSidebar();
+          else openSidebar();
+        });
+      }
+      if (mainContent) {
+        mainContent.addEventListener("click", function () {
+          if (sidebar.classList.contains("open")) closeSidebar();
+        });
+      }
+
+      // 世界时间配置
+      var timeRegions = [
+        {
+          name: "澳大利亚/新西兰",
+          offsetDesc: "快 2~4 小时",
+          getOffset: function () {
+            return 10;
+          },
+        },
+        {
+          name: "韩国/日本",
+          offsetDesc: "快 1 小时",
+          getOffset: function () {
+            return 9;
+          },
+        },
+        {
+          name: "北京/新马菲",
+          offsetDesc: "无时差",
+          getOffset: function () {
+            return 8;
+          },
+        },
+        {
+          name: "泰/越/印尼",
+          offsetDesc: "慢 1 小时",
+          getOffset: function () {
+            return 7;
+          },
+        },
+        {
+          name: "印度/巴基斯坦",
+          offsetDesc: "慢 2.5~3 小时",
+          getOffset: function () {
+            return 5.5;
+          },
+        },
+        {
+          name: "阿联酋/中东海湾",
+          offsetDesc: "慢 4-4.5 小时",
+          getOffset: function () {
+            return 4;
+          },
+        },
+        {
+          name: "莫斯科/土耳其",
+          offsetDesc: "慢 5 小时",
+          getOffset: function () {
+            return 3;
+          },
+        },
+        {
+          name: "南非/埃及/以色列",
+          offsetDesc: "慢 6 小时",
+          getOffset: function () {
+            return 2;
+          },
+        },
+        {
+          name: "欧陆・德法意荷",
+          offsetDesc: "慢 6~7 小时（夏/冬）",
+          getOffset: function () {
+            var now = new Date();
+            var isDST = now.getMonth() > 2 && now.getMonth() < 9;
+            return isDST ? 2 : 1;
+          },
+        },
+        {
+          name: "英国/葡萄牙",
+          offsetDesc: "慢 7~8 小时（夏/冬）",
+          getOffset: function () {
+            var now = new Date();
+            var isDST = now.getMonth() > 2 && now.getMonth() < 9;
+            return isDST ? 1 : 0;
+          },
+        },
+        {
+          name: "美东/多伦多/南美",
+          offsetDesc: "慢 12~13 小时",
+          getOffset: function () {
+            var now = new Date();
+            var isDST = now.getMonth() > 2 && now.getMonth() < 9;
+            return isDST ? -4 : -5;
+          },
+        },
+        {
+          name: "美西洛杉矶/温哥华",
+          offsetDesc: "慢 15~16 小时",
+          getOffset: function () {
+            var now = new Date();
+            var isDST = now.getMonth() > 2 && now.getMonth() < 9;
+            return isDST ? -7 : -8;
+          },
+        },
+      ];
+
+      function updateWorldTimes() {
+        var now = new Date();
+        var utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        var html = "";
+        for (var i = 0; i < timeRegions.length; i++) {
+          var region = timeRegions[i];
+          var offset = region.getOffset();
+          var localTime = new Date(utc + offset * 3600000);
+          var hours = localTime.getHours().toString().padStart(2, "0");
+          var minutes = localTime.getMinutes().toString().padStart(2, "0");
+          var seconds = localTime.getSeconds().toString().padStart(2, "0");
+          var displayOffset = region.offsetDesc;
+          if (
+            region.name === "欧陆・德法意荷" ||
+            region.name === "英国/葡萄牙" ||
+            region.name === "美东/多伦多/南美" ||
+            region.name === "美西洛杉矶/温哥华"
+          ) {
+            var now2 = new Date();
+            var isDST = now2.getMonth() > 2 && now2.getMonth() < 9;
+            if (region.name === "欧陆・德法意荷")
+              displayOffset = isDST ? "慢 6 小时" : "慢 7 小时";
+            else if (region.name === "英国/葡萄牙")
+              displayOffset = isDST ? "慢 7 小时" : "慢 8 小时";
+            else if (region.name === "美东/多伦多/南美")
+              displayOffset = isDST ? "慢 12 小时" : "慢 13 小时";
+            else if (region.name === "美西洛杉矶/温哥华")
+              displayOffset = isDST ? "慢 15 小时" : "慢 16 小时";
+          }
+          html +=
+            '<div class="time-card"><div class="time-card-name">' +
+            region.name +
+            '</div><div class="time-card-time">' +
+            hours +
+            ":" +
+            minutes +
+            ":" +
+            seconds +
+            '</div><div class="time-card-offset">' +
+            displayOffset +
+            "</div></div>";
+        }
+        document.getElementById("timeGrid").innerHTML = html;
+      }
+      updateWorldTimes();
+      setInterval(updateWorldTimes, 1000);
+
+      // 汇率相关
+      function g(id) {
+        var e = document.getElementById(id);
+        return e ? e.innerText || e.textContent || "--" : "--";
+      }
+      function s(id, v) {
+        var e = document.getElementById(id);
+        if (e) e.innerText = v;
+      }
+      function calc(rate, margin) {
+        if (rate == "--" || rate == "" || rate == null) return "--";
+        var r = parseFloat(rate),
+          m = parseFloat(margin);
+        if (isNaN(r) || isNaN(m)) return "--";
+        return (Math.floor((r - m) / 0.05 + 0.0001) * 0.05).toFixed(2);
+      }
+      function refresh() {
+        var mVal = document.getElementById("margin1").value;
+        s("usdQuote", calc(g("usdRate"), mVal));
+        s("eurQuote", calc(g("eurRate"), mVal));
+        s("audQuote", calc(g("audRate"), mVal));
+      }
+      function sync(val) {
+        document.getElementById("margin1").value = val;
+        document.getElementById("margin2").value = val;
+        document.getElementById("margin3").value = val;
+        refresh();
+      }
+
+      function getWeekRange(year, wn) {
+        var d = new Date(year, 0, 4);
+        while (d.getDay() != 4) d.setDate(d.getDate() - 1);
+        d.setDate(d.getDate() - 3);
+        d.setDate(d.getDate() + (wn - 1) * 7);
+        var mon = new Date(d),
+          sun = new Date(d);
+        sun.setDate(d.getDate() + 6);
+        function fmt(x) {
+          return (
+            x.getFullYear() +
+            "年" +
+            (x.getMonth() + 1) +
+            "月" +
+            x.getDate() +
+            "日"
+          );
+        }
+        return fmt(mon) + " - " + fmt(sun) + "（周一至周日）";
+      }
+      function getCurrentWeek() {
+        var now = new Date();
+        var d = new Date(now.getFullYear(), 0, 4);
+        while (d.getDay() != 4) d.setDate(d.getDate() - 1);
+        d.setDate(d.getDate() - 3);
+        var diff = Math.floor((now - d) / (24 * 3600 * 1000));
+        return Math.floor(diff / 7) + 1;
+      }
+      function bindEvents() {
+        var ids = ["margin1", "margin2", "margin3"];
+        for (var i = 0; i < ids.length; i++) {
+          var el = document.getElementById(ids[i]);
+          if (el) {
+            el.oninput = function () {
+              sync(this.value);
+            };
+            el.onblur = function () {
+              if (this.value == "") sync("0.15");
+            };
+          }
+        }
+        var wkIn = document.getElementById("weekIn");
+        if (wkIn) {
+          wkIn.oninput = function () {
+            var v = parseInt(this.value),
+              y = new Date().getFullYear();
+            if (!isNaN(v) && v >= 1 && v <= 53)
+              s("weekRes", getWeekRange(y, v));
+            else s("weekRes", "请输入1-53");
+          };
+        }
+      }
+      function init() {
+        var cw = getCurrentWeek(),
+          cy = new Date().getFullYear();
+        s("currentYearWeek", cy + "年第" + cw + "周");
+        var wkIn = document.getElementById("weekIn");
+        if (wkIn) {
+          wkIn.value = cw;
+          s("weekRes", getWeekRange(cy, cw));
+        }
+        bindEvents();
+      }
+      init();
+      window.refreshRates = function () {
+        refresh();
+      };
+      setInterval(function () {
+        if (g("usdQuote") == "--" && g("usdRate") != "--") refresh();
+      }, 1000);
+
+      // 快递查询
+      (function () {
+        var urls = {
+          ups: "https://www.ups.com/track?loc=zh_CN&tracknum=%s",
+          fedex:
+            "https://www.fedex.com/fedextrack/?tracknumbers=%s&cntry_code=cn",
+          dhl: "https://www.dhl.com/cn-zh/home/tracking.html?tracking-id=%s&submit=1",
+          sf: "https://www.sf-express.com/chn/sc/waybill/waybill-detail/%s",
+        };
+        function track(carrier, inputId, resultId) {
+          var input = document.getElementById(inputId);
+          var resultDiv = document.getElementById(resultId);
+          var trackingNum = input.value.trim();
+          if (!trackingNum) {
+            resultDiv.style.color = "#e67e22";
+            resultDiv.innerText = "❌ 请输入运单号";
+            setTimeout(function () {
+              if (resultDiv.innerText === "❌ 请输入运单号")
+                resultDiv.innerText = "";
+            }, 1000);
+            return;
+          }
+          var finalUrl = urls[carrier].replace(
+            "%s",
+            encodeURIComponent(trackingNum),
+          );
+          var ahk = window.chrome?.webview?.hostObjects?.ahk;
+          if (ahk && ahk.OpenUrl) {
+            ahk.OpenUrl(finalUrl);
+            resultDiv.style.color = "#2c3e50";
+            resultDiv.innerText = "✅ 已打开追踪页面";
+            setTimeout(function () {
+              if (resultDiv.innerText === "✅ 已打开追踪页面")
+                resultDiv.innerText = "";
+            }, 1000);
+          } else {
+            window.open(finalUrl, "_blank");
+          }
+        }
+        var btns = document.querySelectorAll(".express-btn");
+        for (var i = 0; i < btns.length; i++) {
+          var btn = btns[i];
+          var carrier = btn.getAttribute("data-carrier");
+          btn.addEventListener(
+            "click",
+            (function (c) {
+              return function () {
+                if (c === "ups") track("ups", "upsNum", "upsResult");
+                else if (c === "fedex")
+                  track("fedex", "fedexNum", "fedexResult");
+                else if (c === "dhl") track("dhl", "dhlNum", "dhlResult");
+                else if (c === "sf") track("sf", "sfNum", "sfResult");
+              };
+            })(carrier),
+          );
+        }
+      })();
+
+      // 备忘录（无弹窗，文字提示）
+      var memoTextarea = document.getElementById("memoContent");
+      var saveBtn = document.getElementById("saveMemo");
+      var clearBtn = document.getElementById("clearMemo");
+
+      // 创建提示元素（无背景、无圆角）
+      var tipDiv = document.createElement("div");
+      tipDiv.style.cssText =
+        "position: fixed; bottom: 60px; right: 35px; color: #e67e22; font-size: 13px; opacity: 0; transition: opacity 0.3s; z-index: 1002;";
+      document.body.appendChild(tipDiv);
+
+      function showTip(msg) {
+        tipDiv.innerText = msg;
+        tipDiv.style.opacity = "1";
+        setTimeout(function () {
+          tipDiv.style.opacity = "0";
+        }, 1500);
+      }
+
+      // 加载保存的内容
+      var savedMemo = localStorage.getItem("myMemo");
+      if (savedMemo) memoTextarea.value = savedMemo;
+
+      // 保存按钮
+      if (saveBtn) {
+        saveBtn.onclick = function () {
+          localStorage.setItem("myMemo", memoTextarea.value);
+          showTip("已保存");
+        };
+      }
+
+      // 清空按钮
+      if (clearBtn) {
+        clearBtn.onclick = function () {
+          memoTextarea.value = "";
+          localStorage.removeItem("myMemo");
+          showTip("已清空");
+        };
+      }
+    </script>
+  </body>
+</html>

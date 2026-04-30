@@ -233,8 +233,7 @@
         font-size: 10px;
         color: #7f8c8d;
       }
-      .time-card:nth-child(11) .time-card-name,
-      .time-card:nth-child(12) .time-card-name {
+      .time-card:nth-child(11) .time-card-name {
         font-size: 12px;
       }
 
@@ -679,7 +678,7 @@
           },
         },
         {
-          name: "美东/多伦多/南美",
+          name: "美东纽约/多伦多/南美",
           offsetDesc: "慢 12~13 小时",
           getOffset: function () {
             var now = new Date();
@@ -713,7 +712,7 @@
           if (
             region.name === "欧陆・德法意荷" ||
             region.name === "英国/葡萄牙" ||
-            region.name === "美东/多伦多/南美" ||
+            region.name === "美东纽约/多伦多/南美" ||
             region.name === "美西洛杉矶/温哥华"
           ) {
             var now2 = new Date();
@@ -722,7 +721,7 @@
               displayOffset = isDST ? "慢 6 小时" : "慢 7 小时";
             else if (region.name === "英国/葡萄牙")
               displayOffset = isDST ? "慢 7 小时" : "慢 8 小时";
-            else if (region.name === "美东/多伦多/南美")
+            else if (region.name === "美东纽约/多伦多/南美")
               displayOffset = isDST ? "慢 12 小时" : "慢 13 小时";
             else if (region.name === "美西洛杉矶/温哥华")
               displayOffset = isDST ? "慢 15 小时" : "慢 16 小时";

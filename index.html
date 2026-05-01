@@ -190,7 +190,7 @@
         flex-wrap: wrap;
         font-size: 15px;
         color: #2c3e50;
-        line-height: 1.5;
+        line-height: 2;
       }
       .week-input {
         width: 35px;
@@ -204,11 +204,141 @@
       #weekRes {
         margin-left: -5px;
       }
+      /* 单位换算样式 */
+      .converter-columns {
+        display: flex;
+        gap: 30px;
+        width: 100%;
+      }
+
+      .converter-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .converter-block {
+        background: #fff;
+        border: 0px solid #eaeaea;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .unit-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .unit-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .unit-row > div {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .unit-row label {
+        display: block;
+        font-size: 12px;
+        color: #555;
+        margin-bottom: 3px;
+      }
+
+      .unit-row input {
+        width: 100%;
+        padding: 5px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      .unit-row input:focus {
+        outline: none;
+        border-color: #4a627a;
+      }
+
+      /* ========== 侧边栏（完整保留第二屏风格） ========== */
+      .sidebar {
+        position: fixed;
+        right: -600px;
+        top: 0;
+        width: 600px;
+        height: 100vh;
+        background: #f5f5f0;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: hidden;
+        padding: 0 10px 10px 10px;
+      }
+      .sidebar.open {
+        right: 0;
+      }
+      .sidebar .card {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar .card-header {
+        background: #4a627a;
+        color: white;
+        padding: 7px 10px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .sidebar .card-body {
+        padding: 0px;
+      }
+      .calendar-clip {
+        width: 1000px;
+        height: 340px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+
+      .calendar-iframe {
+        position: absolute;
+        top: -117px;
+        left: -71px;
+        width: 1000px;
+        height: 1000px;
+        transform: scale(0.721);
+        transform-origin: 0 0;
+        border: none;
+      }
+
+      .weather-clip {
+        width: 1000px;
+        height: 280px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+
+      .weather-iframe {
+        position: absolute;
+        top: -157px;
+        left: -50px;
+        width: 1000px;
+        height: 1000px;
+        transform: scale(0.875);
+        transform-origin: 0 0;
+        border: none;
+      }
+
       /* 世界时间 - 三行四列网格 */
       .time-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
+        margin: 7px 5px 10px 5px;
       }
       .time-card {
         background: #f8f9fa;
@@ -235,107 +365,6 @@
       }
       .time-card:nth-child(11) .time-card-name {
         font-size: 12px;
-      }
-
-      /* ========== 侧边栏（完整保留第二屏风格） ========== */
-      .sidebar {
-        position: fixed;
-        right: -600px;
-        top: 0;
-        width: 600px;
-        height: 100vh;
-        background: #f5f5f0;
-        transition: right 0.3s ease;
-        z-index: 1000;
-        overflow-y: hidden;
-        padding: 0 10px 10px 10px;
-      }
-      .sidebar.open {
-        right: 0;
-      }
-      .sidebar .card {
-        background: white;
-        border-radius: 16px;
-        margin-bottom: 15px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-      .sidebar .card-header {
-        background: #4a627a;
-        color: white;
-        padding: 7px 10px;
-        font-size: 11px;
-        font-weight: bold;
-      }
-      .sidebar .card-body {
-        padding: 0px;
-      }
-      .calendar-clip {
-        width: 1000px;
-        height: 350px;
-        overflow: hidden;
-        position: relative;
-        background: white;
-      }
-
-      .calendar-iframe {
-        position: absolute;
-        top: -115px;
-        left: -71px;
-        width: 1000px;
-        height: 1000px;
-        transform: scale(0.721);
-        transform-origin: 0 0;
-        border: none;
-      }
-
-      .weather-clip {
-        width: 1000px;
-        height: 295px;
-        overflow: hidden;
-        position: relative;
-        background: white;
-      }
-
-      .weather-iframe {
-        position: absolute;
-        top: -150px;
-        left: -50px;
-        width: 1000px;
-        height: 1000px;
-        transform: scale(0.875);
-        transform-origin: 0 0;
-        border: none;
-      }
-
-      .memo-textarea {
-        width: 100%;
-        height: 135px;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        font-family: "微软雅黑", sans-serif;
-        font-size: 13px;
-        resize: vertical;
-        background: #fffef7;
-      }
-      .memo-buttons {
-        display: flex;
-        gap: 8px;
-        margin: 5px 0 10px 10px;
-      }
-      .memo-btn {
-        padding: 4px 10px; /* 改为固定宽度，不占满 */
-        background: transparent; /* 透明背景 */
-        color: #7f8c8d; /* 灰色文字 */
-        border: 1px solid #ddd; /* 浅灰边框 */
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 12px;
-      }
-      .memo-btn:hover {
-        background: #f0f0f0; /* 悬停时浅灰背景 */
-        color: #2c3e50;
       }
 
       /* 侧边栏开关按钮 */
@@ -516,58 +545,155 @@
           </div>
         </div>
 
-        <!-- 世界时间 -->
-        <div class="card">
-          <div class="card-header">🕐 世界时间</div>
-          <div class="card-body">
-            <div class="time-grid" id="timeGrid"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+       <!-- 单位换算 -->
+<div class="card">
+    <div class="card-header">🔄 单位换算</div>
+    <div class="card-body">
+        <div class="converter-columns">
+            <!-- 左列：长度 + 温度 -->
+            <div class="converter-col">
+                <!-- 长度换算 -->
+                <div class="converter-block">
+                    <div class="unit-row">
+                        <div>
+                            <label>Inch (in)</label>
+                            <input type="number" id="inch" step="any" oninput="convertFromInch()" />
+                        </div>
+                        <div>
+                            <label>Millimeter (mm)</label>
+                            <input type="number" id="mm" step="any" oninput="convertFromMm()" />
+                        </div>
+                    </div>
+                    <div class="unit-row">
+                        <div>
+                            <label>Foot (ft)</label>
+                            <input type="number" id="foot" step="any" oninput="convertFromFoot()" />
+                        </div>
+                        <div>
+                            <label>Meter (m)</label>
+                            <input type="number" id="meter" step="any" oninput="convertFromMeter()" />
+                        </div>
+                    </div>
+                    <div class="unit-row">
+                        <div>
+                            <label>Yard (yd)</label>
+                            <input type="number" id="yard" step="any" oninput="convertFromYard()" />
+                        </div>
+                        <div>
+                            <label>Centimeter (cm)</label>
+                            <input type="number" id="cm" step="any" oninput="convertFromCm()" />
+                        </div>
+                    </div>
+                </div>
 
-    <div class="sidebar" id="sidebar">
-      <!-- 万年历 -->
-      <div class="card">
-        <div class="card-header">📅 万年历</div>
-        <div class="card-body" style="padding: 0">
-          <div class="calendar-clip">
-            <iframe
-              class="calendar-iframe"
-              src="https://www.wnl.cc/"
-              scrolling="no"
-              frameborder="0"
-            ></iframe>
+                <!-- 温度换算 -->
+                <div class="converter-block">
+                    <div class="unit-row">
+                        <div>
+                            <label>Fahrenheit (°F)</label>
+                            <input type="number" id="fahrenheit" step="any" oninput="convertFromFahrenheit()" />
+                        </div>
+                        <div>
+                            <label>Celsius (°C)</label>
+                            <input type="number" id="celsius" step="any" oninput="convertFromCelsius()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右列：重量 + 压力 -->
+            <div class="converter-col">
+                <!-- 重量换算 -->
+                <div class="converter-block">
+                    <div class="unit-row">
+                        <div>
+                            <label>Ounce (oz)</label>
+                            <input type="number" id="ounce" step="any" oninput="convertFromOunce()" />
+                        </div>
+                        <div>
+                            <label>Gram (g)</label>
+                            <input type="number" id="gram" step="any" oninput="convertFromGram()" />
+                        </div>
+                    </div>
+                    <div class="unit-row">
+                        <div>
+                            <label>Pound (lb)</label>
+                            <input type="number" id="pound" step="any" oninput="convertFromPound()" />
+                        </div>
+                        <div>
+                            <label>Kilogram (kg)</label>
+                            <input type="number" id="kg" step="any" oninput="convertFromKg()" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 压力换算 -->
+                <div class="converter-block">
+                    <div class="unit-row">
+                        <div>
+                            <label>PSI</label>
+                            <input type="number" id="psi" step="any" oninput="convertFromPsi()" />
+                        </div>
+                        <div>
+                            <label>MPa</label>
+                            <input type="number" id="mpa" step="any" oninput="convertFromMpa()" />
+                        </div>
+                    </div>
+                    <div class="unit-row">
+                        <div>
+                            <label>Pascal (Pa)</label>
+                            <input type="number" id="pascal" step="any" oninput="convertFromPascal()" />
+                        </div>
+                        <div>
+                            <label>Bar</label>
+                            <input type="number" id="bar" step="any" oninput="convertFromBar()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
           </div>
         </div>
-      </div>
-      <!-- 天气 -->
-      <div class="card">
-        <div class="card-header">🌤️ 实时天气 - 宁波鄞州</div>
-        <div class="card-body" style="padding: 0">
-          <div class="weather-clip">
-            <iframe
-              class="weather-iframe"
-              src="https://www.weather.com.cn/weather1d/101210411.shtml"
-              sandbox="allow-same-origin allow-scripts allow-forms"
-              scrolling="no"
-              frameborder="0"
-            ></iframe>
+
+        <div class="sidebar" id="sidebar">
+          <!-- 万年历 -->
+          <div class="card">
+            <div class="card-header">📅 万年历</div>
+            <div class="card-body" style="padding: 0">
+              <div class="calendar-clip">
+                <iframe
+                  class="calendar-iframe"
+                  src="https://www.wnl.cc/"
+                  scrolling="no"
+                  frameborder="0"
+                ></iframe>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- 备忘便笺 -->
-      <div class="card">
-        <div class="card-header">📝 备忘便笺</div>
-        <div class="card-body">
-          <textarea
-            id="memoContent"
-            class="memo-textarea"
-            placeholder="记录你的备忘信息..."
-          ></textarea>
-          <div class="memo-buttons">
-            <button class="memo-btn" id="saveMemo">保存</button>
-            <button class="memo-btn" id="clearMemo">清空</button>
+          <!-- 天气 -->
+          <div class="card">
+            <div class="card-header">🌤️ 实时天气 - 宁波鄞州</div>
+            <div class="card-body" style="padding: 0">
+              <div class="weather-clip">
+                <iframe
+                  class="weather-iframe"
+                  src="https://www.weather.com.cn/weather1d/101210411.shtml"
+                  sandbox="allow-same-origin allow-scripts allow-forms"
+                  scrolling="no"
+                  frameborder="0"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- 世界时间 -->
+          <div class="card">
+            <div class="card-header">🕐 世界时间</div>
+            <div class="card-body">
+              <div class="time-grid" id="timeGrid"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -577,13 +703,6 @@
     <button class="sidebar-toggle" id="toggleSidebar">☰</button>
 
     <script>
-      // ========== 初始化：强制第一屏（解决闪烁） ==========
-      window.addEventListener("DOMContentLoaded", function () {
-        var sidebar = document.getElementById("sidebar");
-        if (sidebar) {
-          sidebar.classList.remove("open");
-        }
-      });
       // 侧边栏控制（点击按钮切换打开/关闭）
       var sidebar = document.getElementById("sidebar");
       var toggleBtn = document.getElementById("toggleSidebar");
@@ -607,6 +726,187 @@
           if (sidebar.classList.contains("open")) closeSidebar();
         });
       }
+
+      // ==================== 长度换算 ====================
+function convertFromInch() {
+    const inch = parseFloat(document.getElementById('inch').value) || 0;
+    document.getElementById('foot').value = formatFoot(inch / 12);
+    document.getElementById('yard').value = formatYard(inch / 36);
+    document.getElementById('mm').value = formatMm(inch * 25.4);
+    document.getElementById('cm').value = formatCm(inch * 2.54);
+    document.getElementById('meter').value = formatMeter(inch * 0.0254);
+}
+
+function convertFromFoot() {
+    const foot = parseFloat(document.getElementById('foot').value) || 0;
+    document.getElementById('inch').value = formatInch(foot * 12);
+    document.getElementById('yard').value = formatYard(foot / 3);
+    document.getElementById('mm').value = formatMm(foot * 304.8);
+    document.getElementById('cm').value = formatCm(foot * 30.48);
+    document.getElementById('meter').value = formatMeter(foot * 0.3048);
+}
+
+function convertFromYard() {
+    const yard = parseFloat(document.getElementById('yard').value) || 0;
+    document.getElementById('inch').value = formatInch(yard * 36);
+    document.getElementById('foot').value = formatFoot(yard * 3);
+    document.getElementById('mm').value = formatMm(yard * 914.4);
+    document.getElementById('cm').value = formatCm(yard * 91.44);
+    document.getElementById('meter').value = formatMeter(yard * 0.9144);
+}
+
+function convertFromMm() {
+    const mm = parseFloat(document.getElementById('mm').value) || 0;
+    document.getElementById('cm').value = formatCm(mm / 10);
+    document.getElementById('meter').value = formatMeter(mm / 1000);
+    document.getElementById('inch').value = formatInch(mm / 25.4);
+    document.getElementById('foot').value = formatFoot(mm / 304.8);
+    document.getElementById('yard').value = formatYard(mm / 914.4);
+}
+
+function convertFromCm() {
+    const cm = parseFloat(document.getElementById('cm').value) || 0;
+    document.getElementById('mm').value = formatMm(cm * 10);
+    document.getElementById('meter').value = formatMeter(cm / 100);
+    document.getElementById('inch').value = formatInch(cm / 2.54);
+    document.getElementById('foot').value = formatFoot(cm / 30.48);
+    document.getElementById('yard').value = formatYard(cm / 91.44);
+}
+
+function convertFromMeter() {
+    const m = parseFloat(document.getElementById('meter').value) || 0;
+    document.getElementById('mm').value = formatMm(m * 1000);
+    document.getElementById('cm').value = formatCm(m * 100);
+    document.getElementById('inch').value = formatInch(m / 0.0254);
+    document.getElementById('foot').value = formatFoot(m / 0.3048);
+    document.getElementById('yard').value = formatYard(m / 0.9144);
+}
+
+// 长度格式化函数
+function formatInch(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatFoot(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatYard(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatMm(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatCm(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatMeter(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+
+// ==================== 温度换算 ====================
+function convertFromFahrenheit() {
+    const fahrenheit = parseFloat(document.getElementById('fahrenheit').value) || 0;
+    const celsius = (fahrenheit - 32) * 5 / 9;
+    document.getElementById('celsius').value = formatCelsius(celsius);
+}
+
+function convertFromCelsius() {
+    const celsius = parseFloat(document.getElementById('celsius').value) || 0;
+    const fahrenheit = (celsius * 9 / 5) + 32;
+    document.getElementById('fahrenheit').value = formatFahrenheit(fahrenheit);
+}
+
+function formatCelsius(value) {
+    return parseFloat(value).toFixed(2).replace(/\.?0+$/, '');
+}
+function formatFahrenheit(value) {
+    return parseFloat(value).toFixed(2).replace(/\.?0+$/, '');
+}
+
+// ==================== 重量换算 ====================
+function convertFromGram() {
+    const grams = parseFloat(document.getElementById('gram').value) || 0;
+    document.getElementById('kg').value = formatKg(grams / 1000);
+    document.getElementById('ounce').value = formatOunce(grams / 28.3495);
+    document.getElementById('pound').value = formatPound(grams / 453.592);
+}
+
+function convertFromKg() {
+    const kilograms = parseFloat(document.getElementById('kg').value) || 0;
+    document.getElementById('gram').value = formatGram(kilograms * 1000);
+    document.getElementById('ounce').value = formatOunce(kilograms * 35.274);
+    document.getElementById('pound').value = formatPound(kilograms * 2.20462);
+}
+
+function convertFromOunce() {
+    const ounces = parseFloat(document.getElementById('ounce').value) || 0;
+    document.getElementById('gram').value = formatGram(ounces * 28.3495);
+    document.getElementById('kg').value = formatKg(ounces / 35.274);
+    document.getElementById('pound').value = formatPound(ounces / 16);
+}
+
+function convertFromPound() {
+    const pounds = parseFloat(document.getElementById('pound').value) || 0;
+    document.getElementById('gram').value = formatGram(pounds * 453.592);
+    document.getElementById('kg').value = formatKg(pounds / 2.20462);
+    document.getElementById('ounce').value = formatOunce(pounds * 16);
+}
+
+// 重量格式化函数
+function formatGram(value) {
+    return parseFloat(value).toFixed(2).replace(/\.?0+$/, '');
+}
+function formatKg(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatOunce(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatPound(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+
+// ==================== 压力换算 ====================
+function convertFromPsi() {
+    const psi = parseFloat(document.getElementById('psi').value) || 0;
+    document.getElementById('pascal').value = formatPascal(psi * 6894.76);
+    document.getElementById('mpa').value = formatMpa(psi / 145.038);
+    document.getElementById('bar').value = formatBar(psi / 14.5038);
+}
+
+function convertFromPascal() {
+    const pa = parseFloat(document.getElementById('pascal').value) || 0;
+    document.getElementById('psi').value = formatPsi(pa / 6894.76);
+    document.getElementById('mpa').value = formatMpa(pa / 1000000);
+    document.getElementById('bar').value = formatBar(pa / 100000);
+}
+
+function convertFromMpa() {
+    const mpa = parseFloat(document.getElementById('mpa').value) || 0;
+    document.getElementById('psi').value = formatPsi(mpa * 145.038);
+    document.getElementById('pascal').value = formatPascal(mpa * 1000000);
+    document.getElementById('bar').value = formatBar(mpa * 10);
+}
+
+function convertFromBar() {
+    const bar = parseFloat(document.getElementById('bar').value) || 0;
+    document.getElementById('psi').value = formatPsi(bar * 14.5038);
+    document.getElementById('pascal').value = formatPascal(bar * 100000);
+    document.getElementById('mpa').value = formatMpa(bar / 10);
+}
+
+// 压力格式化函数
+function formatPsi(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatPascal(value) {
+    return parseFloat(value).toFixed(2).replace(/\.?0+$/, '');
+}
+function formatMpa(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
+function formatBar(value) {
+    return parseFloat(value).toFixed(5).replace(/\.?0+$/, '');
+}
 
       // 世界时间配置
       var timeRegions = [
@@ -907,46 +1207,6 @@
           );
         }
       })();
-
-      // 备忘录（无弹窗，文字提示）
-      var memoTextarea = document.getElementById("memoContent");
-      var saveBtn = document.getElementById("saveMemo");
-      var clearBtn = document.getElementById("clearMemo");
-
-      // 创建提示元素（无背景、无圆角）
-      var tipDiv = document.createElement("div");
-      tipDiv.style.cssText =
-        "position: fixed; bottom: 60px; right: 35px; color: #e67e22; font-size: 13px; opacity: 0; transition: opacity 0.3s; z-index: 1002;";
-      document.body.appendChild(tipDiv);
-
-      function showTip(msg) {
-        tipDiv.innerText = msg;
-        tipDiv.style.opacity = "1";
-        setTimeout(function () {
-          tipDiv.style.opacity = "0";
-        }, 1500);
-      }
-
-      // 加载保存的内容
-      var savedMemo = localStorage.getItem("myMemo");
-      if (savedMemo) memoTextarea.value = savedMemo;
-
-      // 保存按钮
-      if (saveBtn) {
-        saveBtn.onclick = function () {
-          localStorage.setItem("myMemo", memoTextarea.value);
-          showTip("文本已保存");
-        };
-      }
-
-      // 清空按钮
-      if (clearBtn) {
-        clearBtn.onclick = function () {
-          memoTextarea.value = "";
-          localStorage.removeItem("myMemo");
-          showTip("文本已清空");
-        };
-      }
     </script>
   </body>
 </html>

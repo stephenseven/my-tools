@@ -577,6 +577,13 @@
     <button class="sidebar-toggle" id="toggleSidebar">☰</button>
 
     <script>
+      // ========== 初始化：强制第一屏（解决闪烁） ==========
+      window.addEventListener("DOMContentLoaded", function () {
+        var sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+          sidebar.classList.remove("open");
+        }
+      });
       // 侧边栏控制（点击按钮切换打开/关闭）
       var sidebar = document.getElementById("sidebar");
       var toggleBtn = document.getElementById("toggleSidebar");

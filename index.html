@@ -31,7 +31,7 @@
       .card {
         background: white;
         border-radius: 16px;
-        margin-bottom: 20px;
+        margin-bottom: 17px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
@@ -43,7 +43,7 @@
         font-weight: bold;
       }
       .card-body {
-        padding: 15px 15px;
+        padding: 10px;
       }
       /* 汇率表格 */
       .rate-table {
@@ -190,7 +190,7 @@
         flex-wrap: wrap;
         font-size: 15px;
         color: #2c3e50;
-        line-height: 2;
+        line-height: 1.9;
       }
       .week-input {
         width: 35px;
@@ -204,6 +204,112 @@
       #weekRes {
         margin-left: -5px;
       }
+      
+/* 世界时间 - 三行四列网格 */
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 0px 0px 10px 0px;
+      }
+      .time-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 5px 5px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+      }
+      .time-card-name {
+        font-size: 13px;
+        color: #2c3e50;
+        margin-bottom: 2px;
+      }
+      .time-card-time {
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #2c3e50;
+        margin: 3px 0;
+      }
+      .time-card-offset {
+        font-size: 10px;
+        color: #7f8c8d;
+      }
+      .time-card:nth-child(11) .time-card-name {
+        font-size: 12px;
+      }
+
+      /* ========== 侧边栏（完整保留第二屏风格） ========== */
+      .sidebar {
+        position: fixed;
+        right: -600px;
+        top: 0;
+        width: 600px;
+        height: 100vh;
+        background: #f5f5f0;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: hidden;
+        padding: 0 10px 10px 10px;
+      }
+      .sidebar.open {
+        right: 0;
+      }
+      .sidebar .card {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 7px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar .card-header {
+        background: #4a627a;
+        color: white;
+        padding: 7px 10px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .sidebar .card-body {
+        padding: 10px;
+      }
+      .calendar-clip {
+        width: 1000px;
+        height: 337px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+
+      .calendar-iframe {
+        position: absolute;
+        top: -117px;
+        left: -71px;
+        width: 1000px;
+        height: 1000px;
+        transform: scale(0.721);
+        transform-origin: 0 0;
+        border: none;
+      }
+
+      .weather-clip {
+        width: 1000px;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+        background: white;
+      }
+
+      .weather-iframe {
+        position: absolute;
+        top: -197px;
+        left: -52px;
+        width: 1000px;
+        height: 1000px;
+        transform: scale(0.883);
+        transform-origin: 0 0;
+        border: none;
+      }
+
       /* 单位换算样式 */
       .converter-columns {
         display: flex;
@@ -215,7 +321,7 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 25px;
       }
 
       .converter-block {
@@ -229,7 +335,7 @@
         display: flex;
         justify-content: space-between;
         gap: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 3px;
       }
 
       .unit-row:last-child {
@@ -262,112 +368,7 @@
         border-color: #4a627a;
       }
 
-      /* ========== 侧边栏（完整保留第二屏风格） ========== */
-      .sidebar {
-        position: fixed;
-        right: -600px;
-        top: 0;
-        width: 600px;
-        height: 100vh;
-        background: #f5f5f0;
-        transition: right 0.3s ease;
-        z-index: 1000;
-        overflow-y: hidden;
-        padding: 0 10px 10px 10px;
-      }
-      .sidebar.open {
-        right: 0;
-      }
-      .sidebar .card {
-        background: white;
-        border-radius: 16px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-      .sidebar .card-header {
-        background: #4a627a;
-        color: white;
-        padding: 7px 10px;
-        font-size: 11px;
-        font-weight: bold;
-      }
-      .sidebar .card-body {
-        padding: 0px;
-      }
-      .calendar-clip {
-        width: 1000px;
-        height: 337px;
-        overflow: hidden;
-        position: relative;
-        background: white;
-      }
-
-      .calendar-iframe {
-        position: absolute;
-        top: -117px;
-        left: -71px;
-        width: 1000px;
-        height: 1000px;
-        transform: scale(0.721);
-        transform-origin: 0 0;
-        border: none;
-      }
-
-      .weather-clip {
-        width: 1000px;
-        height: 280px;
-        overflow: hidden;
-        position: relative;
-        background: white;
-      }
-
-      .weather-iframe {
-        position: absolute;
-        top: -157px;
-        left: -50px;
-        width: 1000px;
-        height: 1000px;
-        transform: scale(0.875);
-        transform-origin: 0 0;
-        border: none;
-      }
-
-      /* 世界时间 - 三行四列网格 */
-      .time-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin: 5px;
-      }
-      .time-card {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 5px 5px;
-        text-align: center;
-        border: 1px solid #e0e0e0;
-      }
-      .time-card-name {
-        font-size: 13px;
-        color: #2c3e50;
-        margin-bottom: 2px;
-      }
-      .time-card-time {
-        font-size: 14px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        color: #2c3e50;
-        margin: 3px 0;
-      }
-      .time-card-offset {
-        font-size: 10px;
-        color: #7f8c8d;
-      }
-      .time-card:nth-child(11) .time-card-name {
-        font-size: 12px;
-      }
-
-      /* 侧边栏开关按钮 */
+            /* 侧边栏开关按钮 */
       .sidebar-toggle {
         position: fixed;
         right: 10px;
@@ -545,7 +546,49 @@
           </div>
         </div>
 
-       <!-- 单位换算 -->
+        <!-- 世界时间 -->
+          <div class="card">
+            <div class="card-header">🕐 世界时间</div>
+            <div class="card-body">
+              <div class="time-grid" id="timeGrid"></div>
+            </div>
+          </div>
+
+ 
+          </div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+          <!-- 万年历 -->
+          <div class="card">
+            <div class="card-header">📅 万年历</div>
+            <div class="card-body" style="padding: 0">
+              <div class="calendar-clip">
+                <iframe
+                  class="calendar-iframe"
+                  src="https://www.wnl.cc/"
+                  scrolling="no"
+                  frameborder="0"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- 天气 -->
+          <div class="card">
+            <div class="card-header">🌤️ 实时天气 - 宁波鄞州</div>
+            <div class="card-body" style="padding: 0">
+              <div class="weather-clip">
+                <iframe
+                  class="weather-iframe"
+                  src="https://www.weather.com.cn/weather/101210411.shtml"
+                  sandbox="allow-same-origin allow-scripts allow-forms"
+                  scrolling="no"
+                  frameborder="0"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+      <!-- 单位换算 -->
 <div class="card">
     <div class="card-header">🔄 单位换算</div>
     <div class="card-body">
@@ -654,47 +697,7 @@
         </div>
     </div>
 </div>
-          </div>
-        </div>
-
-        <div class="sidebar" id="sidebar">
-          <!-- 万年历 -->
-          <div class="card">
-            <div class="card-header">📅 万年历</div>
-            <div class="card-body" style="padding: 0">
-              <div class="calendar-clip">
-                <iframe
-                  class="calendar-iframe"
-                  src="https://www.wnl.cc/"
-                  scrolling="no"
-                  frameborder="0"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-          <!-- 天气 -->
-          <div class="card">
-            <div class="card-header">🌤️ 实时天气 - 宁波鄞州</div>
-            <div class="card-body" style="padding: 0">
-              <div class="weather-clip">
-                <iframe
-                  class="weather-iframe"
-                  src="https://www.weather.com.cn/weather1d/101210411.shtml"
-                  sandbox="allow-same-origin allow-scripts allow-forms"
-                  scrolling="no"
-                  frameborder="0"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-
-          <!-- 世界时间 -->
-          <div class="card">
-            <div class="card-header">🕐 世界时间</div>
-            <div class="card-body">
-              <div class="time-grid" id="timeGrid"></div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
